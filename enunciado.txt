@@ -10,6 +10,29 @@ Los clientes solo pueden comprar o retirar un libro, en caso de no devolverlo, s
 5. Los datos de usuarios y libros debe de estar separados, cada uno en formato csv (Comma separated values).
 
 
+OBJETIVOS
+1. crear archivo para guardar usuario y contraseña.
+2. crear archivo de libros (id, genero, titulo, año de llegada, nombre dueño, apellido dueño) si el libro no tiene dueño poner "--".
+    a. modificar libros.
+    b. añadir libros.
+    c. eliminar libros.
+3. crear archivo de personas (ci, nombre, apellido, email, genero, edad)
+    a. agregar nuevos usuarios
+    b. eliminar usuarios
+    c. suspender usuarios
+4. crear archivo para llevar registro de fechas de salida y llegada de libros.
+5. dar opciones segun su rol
+    a. administrador
+        - modificacion total de libros
+        - poder suspender y eliminar suspenciones
+        - modificacion total de usuarios
+    b. empleado
+        - solo modificar libros
+    c. cliente
+        - comprar libros
+        - retirar libros
+
+
 Observaciones:
 1. La entrega es por medio del enlace a un repositorio.
 2. El proyecto debe de tener su propio README.md.

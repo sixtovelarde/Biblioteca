@@ -32,8 +32,6 @@ OBJETIVOS
         - comprar libros
         - retirar libros
 
-JAJAJAAJAJA
-
 Observaciones:
 1. La entrega es por medio del enlace a un repositorio.
 2. El proyecto debe de tener su propio README.md.

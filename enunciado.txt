@@ -16,7 +16,7 @@ OBJETIVOS
     a. modificar libros.
     b. añadir libros.
     c. eliminar libros.
-3. crear archivo de personas (ci, nombre, apellido, email, genero, edad)
+3. crear archivo de personas (ci, nombre, apellido, email, genero, edad).
     a. agregar nuevos usuarios
     b. eliminar usuarios
     c. suspender usuarios
@@ -32,6 +32,7 @@ OBJETIVOS
         - comprar libros
         - retirar libros
 
+JAJAJAAJAJA
 
 Observaciones:
 1. La entrega es por medio del enlace a un repositorio.

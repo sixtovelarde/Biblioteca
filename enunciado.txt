@@ -1,0 +1,29 @@
+Una biblioteca quiere tener su propio sistema administrativo, pero carecen de presupuesto y solo pueden permitirse un aplicación de 
+consola, usted y su compañero fueron los únicos contratados para el desarrollo, y para la primera reunión estos fueron los requisitos
+mínimos que debe cumplir el sistema para la primera entrega a la biblioteca.
+
+1. Antes de realizar cualquier operación el usuario debe primero ingresar su nombre de usuario y contraseña.
+2. El sistema debe poder realizar las acciones de guardar, modificar y eliminar los datos de los libros en el sistema.
+3. El sistema debe de permitir el registro de nuevos usuarios, así como su eliminación o suspensión
+4. Un administrador puede realizar todas las acciones, los empleados solo pueden realizar acciones relacionadas a los libros. 
+Los clientes solo pueden comprar o retirar un libro, en caso de no devolverlo, se debe de suspender al cliente.
+5. Los datos de usuarios y libros debe de estar separados, cada uno en formato csv (Comma separated values).
+
+
+Observaciones:
+1. La entrega es por medio del enlace a un repositorio.
+2. El proyecto debe de tener su propio README.md.
+3. El proyecto debe de seguir la siguiente estructura de carpetas: una carpeta bin donde se generara el ejecutable y donde estan los datos,
+una carpeta src donde solo debe de estar el codigo del proyecto.
+4. El trabajo es en pareja o individual.
+5. Si el trabajo se hace en pareja, la diferencia de commits entre ambos no debe ser gigante, es decir, si uno de los dos tiene el 90% de los
+commits y el otro el 10%, la nota completa será para la primera persona y la segunda se evaluara según el trabajo que hizo y que de verdad
+se use en el programa final entregado.
+6. Los commits tienen que tener el formato visto en clase, de no tenerlo se pueden reducir hasta 4 puntos.
+7. Si un proyecto solo tiene un commit, asumiré que se hizo un día antes y no hubo el debido análisis del proyecto, entonces evaluaré el proyecto
+en base a 10, lo mismo se aplica para commits hechos un día antes de la entrega.
+8. No se pueden utilizar vectores.
+9. Cada requisito no cumplido quita 4 puntos, las observaciones relacionadas a la entrega del proyecto no cumplida quita 2 puntos.
+10. Los nombres de los archivos del programa sin símbolos especiales ni espacios, solo snake_case o camel_case, lo mismo aplica para las carpetas.
+11. Hasta que el usuario lo diga el programa debe de seguir ejecutandose.
+12. El proyecto debe de tener ya unos datos para probar la aplicación, utilicen mockaroo para la generación de mock data.

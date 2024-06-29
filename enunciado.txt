@@ -1,51 +1,54 @@
-Una biblioteca quiere tener su propio sistema administrativo, pero carecen de presupuesto y solo pueden permitirse un aplicación de 
-consola, usted y su compañero fueron los únicos contratados para el desarrollo, y para la primera reunión estos fueron los requisitos
-mínimos que debe cumplir el sistema para la primera entrega a la biblioteca.
+Estructura de carpetas:
 
-1. Antes de realizar cualquier operación el usuario debe primero ingresar su nombre de usuario y contraseña.
-2. El sistema debe poder realizar las acciones de guardar, modificar y eliminar los datos de los libros en el sistema.
-3. El sistema debe de permitir el registro de nuevos usuarios, así como su eliminación o suspensión
-4. Un administrador puede realizar todas las acciones, los empleados solo pueden realizar acciones relacionadas a los libros. 
-Los clientes solo pueden comprar o retirar un libro, en caso de no devolverlo, se debe de suspender al cliente.
-5. Los datos de usuarios y libros debe de estar separados, cada uno en formato csv (Comma separated values).
+bin/
+main.exe (archivo ejecutable)
+users.csv
+books.csv
+src/
+main.cpp
+user.cpp
+user.h
+book.cpp
+book.h
+admin.cpp
+admin.h
+employee.cpp
+employee.h
+client.cpp
+client.h
+Formato de los archivos CSV:
 
+users.csv
 
-OBJETIVOS
-1. crear archivo para guardar usuario y contraseña.
-2. crear archivo de libros (id, genero, titulo, año de llegada, nombre dueño, apellido dueño) si el libro no tiene dueño poner "--".
-    a. modificar libros.
-    b. añadir libros.
-    c. eliminar libros.
-3. crear archivo de personas (ci, nombre, apellido, email, genero, edad).
-    a. agregar nuevos usuarios
-    b. eliminar usuarios
-    c. suspender usuarios
-4. crear archivo para llevar registro de fechas de salida y llegada de libros.
-5. dar opciones segun su rol
-    a. administrador
-        - modificacion total de libros
-        - poder suspender y eliminar suspenciones
-        - modificacion total de usuarios
-    b. empleado
-        - solo modificar libros
-    c. cliente
-        - comprar libros
-        - retirar libros
+id,username,password,type,suspended
+1,admin,admin123,admin,false
+2,employee1,emp123,employee,false
+3,client1,client123,client,false
+books.csv
 
-Observaciones:
-1. La entrega es por medio del enlace a un repositorio.
-2. El proyecto debe de tener su propio README.md.
-3. El proyecto debe de seguir la siguiente estructura de carpetas: una carpeta bin donde se generara el ejecutable y donde estan los datos,
-una carpeta src donde solo debe de estar el codigo del proyecto.
-4. El trabajo es en pareja o individual.
-5. Si el trabajo se hace en pareja, la diferencia de commits entre ambos no debe ser gigante, es decir, si uno de los dos tiene el 90% de los
-commits y el otro el 10%, la nota completa será para la primera persona y la segunda se evaluara según el trabajo que hizo y que de verdad
-se use en el programa final entregado.
-6. Los commits tienen que tener el formato visto en clase, de no tenerlo se pueden reducir hasta 4 puntos.
-7. Si un proyecto solo tiene un commit, asumiré que se hizo un día antes y no hubo el debido análisis del proyecto, entonces evaluaré el proyecto
-en base a 10, lo mismo se aplica para commits hechos un día antes de la entrega.
-8. No se pueden utilizar vectores.
-9. Cada requisito no cumplido quita 4 puntos, las observaciones relacionadas a la entrega del proyecto no cumplida quita 2 puntos.
-10. Los nombres de los archivos del programa sin símbolos especiales ni espacios, solo snake_case o camel_case, lo mismo aplica para las carpetas.
-11. Hasta que el usuario lo diga el programa debe de seguir ejecutandose.
-12. El proyecto debe de tener ya unos datos para probar la aplicación, utilicen mockaroo para la generación de mock data.
+id,title,author,available
+1,Cien años de soledad,Gabriel García Márquez,true
+2,El Principito,Antoine de Saint-Exupéry,true
+3,Orgullo y prejuicio,Jane Austen,false
+Descripción del código:
+
+    main.cpp: Contiene el método principal que inicia la ejecución del programa. Maneja el flujo principal de la aplicación,
+solicitando al usuario su nombre de usuario y contraseña, y luego redirigiendo a las funcionalidades correspondientes según el tipo de usuario.
+
+    user.cpp/user.h: Contiene la definición y la implementación de la clase User, que representa a los usuarios del sistema.
+Incluye métodos para el manejo de usuarios, como iniciar sesión, registrar, eliminar y suspender.
+
+    book.cpp/book.h: Contiene la definición y la implementación de la clase Book, que representa a los libros en el sistema.
+Incluye métodos para el manejo de los libros, como guardar, modificar y eliminar.
+
+    admin.cpp/admin.h: Contiene la definición y la implementación de la clase Admin, que hereda de User y representa a los 
+administradores del sistema. Incluye métodos específicos para realizar todas las acciones disponibles.
+
+    employee.cpp/employee.h: Contiene la definición y la implementación de la clase Employee, que hereda de User y representa
+a los empleados del sistema. Incluye métodos específicos para realizar acciones relacionadas a los libros.
+
+    client.cpp/client.h: Contiene la definición y la implementación de la clase Client, que hereda de User y representa a los
+clientes del sistema. Incluye métodos específicos para comprar y retirar libros, y para suspender a un cliente en caso de no devolución.
+
+    El programa se ejecutará de manera continua hasta que el usuario decida salir. Los datos de usuarios y libros se cargarán
+y guardarán en los archivos CSV correspondientes. Cada vez que se realice una acción, los cambios se reflejarán en los archivos.

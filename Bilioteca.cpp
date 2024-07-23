@@ -12,7 +12,7 @@ struct Persona{
     string Email;
     string Clave;
     int libros_prestados;
-    int status;
+    string status;
 };
 
 struct libros{
@@ -26,7 +26,8 @@ struct libros{
 };
 
 
-void LeerDatosLibros(const string &filename, Persona catalog[], int &catalogsize);
+void LeerDatosLibros(const string &filename, libros catalog[], int &catalogsize);
+void LeerDatosPersonas(const string &filename, Persona catalog[], int &catalogsize);
 
 int main(){
 int status = 0;
@@ -42,7 +43,7 @@ else if(status==2){
 }
 }
 }
-void LeerDatosLibros(const string &filename, Persona catalog[], int &catalogsize){
+void LeerDatosLibros(const string &filename, libros catalog[], int &catalogsize){
     ifstream booksfile(filename);
     string line;
     catalogsize = 0;
@@ -53,14 +54,36 @@ void LeerDatosLibros(const string &filename, Persona catalog[], int &catalogsize
 
         ss>> catalog[catalogsize].id;
         ss.ignore();
-        getline(ss, catalog[catalogsize].Nombre,';');
-        getline(ss, catalog[catalogsize].Apellido,';');
-        getline(ss, catalog[catalogsize].Email,';');
-        getline(ss, catalog[catalogsize].Clave,';');
+        getline(ss, catalog[catalogsize].titulo,',');
+        getline(ss, catalog[catalogsize].autor,',');
+        getline(ss, catalog[catalogsize].genero,',');
+        getline(ss, catalog[catalogsize].fecha_publicacion,',');
+        getline(ss, catalog[catalogsize].editorial,',');
+        ss >> catalog[catalogsize].precio;
+        ss.ignore();
+
+        catalogsize++;
+    }
+}
+void LeerDatosPersonas(const string &filename, Persona catalog[], int &catalogsize){
+    ifstream peopleFile(filename);
+    string line;
+    catalogsize = 0;
+
+    getline(peopleFile, line);
+
+    while(getline(peopleFile,line)){
+        stringstream ss(line);
+
+        ss>> catalog[catalogsize].id;
+        ss.ignore();
+        getline(ss, catalog[catalogsize].Nombre,',');
+        getline(ss, catalog[catalogsize].Apellido,',');
+        getline(ss, catalog[catalogsize].Email,',');
+        getline(ss, catalog[catalogsize].Clave,',');
         ss >> catalog[catalogsize].libros_prestados;
         ss.ignore();
-        ss >> catalog[catalogsize].status;
-        ss.ignore();
+        getline(ss, catalog[catalogsize].status,',');
 
         catalogsize++;
     }

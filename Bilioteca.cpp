@@ -2,6 +2,8 @@
 #include<string>
 #include<fstream>
 #include<sstream>
+#include<limits>
+#include<cstdio>
 
 using namespace std;
 
@@ -48,7 +50,7 @@ cout<<"Ingrese su correo: ";
 getline(cin,p.Email);
 cout<<"Ingrese su clave: ";
 getline(cin,p.Clave);
-ifstream people_file("People.csv");
+ifstream people_file("Clients.csv");
 
 while(getline(people_file,line)){
 stringstream ss(line);
@@ -61,6 +63,7 @@ getline(ss,search_email, ',');
 getline(ss,password, ',');
 getline(ss,borrowed_books, ',');
 getline(ss,status,',');
+
 if(search_email == p.Email && password == p.Clave){
         if(status == "admin"){
         cout<<"Bienvenido a la app de la biblioteca, que desea hacer hoy?"<<endl
@@ -183,7 +186,6 @@ void LeerDatosPersonas(const string &filename, Persona catalog[], int &catalogsi
     }
 }
 void AgregarDatosLibros(){
-    ofstream bookfile("Books.csv" , ios::app);
     ifstream bookfile2("Books.csv");
     string line;
     libros l;
@@ -192,7 +194,11 @@ void AgregarDatosLibros(){
     while(getline(bookfile2,line)){
         new_id++;
     }
+    bookfile2.close();
+    l.id=new_id;
+
     cout<<"Ingrese el titulo: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin,l.titulo);
     cout<<"Ingrese el nombre del autor: ";
     getline(cin,l.autor);
@@ -205,9 +211,10 @@ void AgregarDatosLibros(){
     cout<<"Ingrese el precio del libro: ";
     cin>>l.precio;
 
+    ofstream bookfile("Books.csv", ios::app);
+
     bookfile<<l.id<<","<<l.titulo<<","<<l.autor<<","<<l.genero<<","<<l.fecha_publicacion<<","<<l.editorial<<","<<l.precio<<endl;
     bookfile.close();
-    bookfile2.close();
 }
 void EliminarDatosLibros(){
     libros l;
@@ -234,29 +241,31 @@ void ModificarDatosLibros(){
     libros l;
     cout<<"Ingrese el id del libro que desea modificar: ";
     cin>>l.id;
-
-    ofstream temp("temp.csv");
-    ifstream bookfile("Books.csv");
+    ofstream temp("temp.csv",ios::out);
+    ifstream bookfile("Books.csv",ios::in);
     string line;
 
     while(getline(bookfile,line)){
         int actual_id = atoi(line.substr(0,line.find(',')).c_str());
-        if(actual_id == l.id){
+        if(actual_id != l.id){
+            temp<<line<<endl;
+        }
+        else{
             cout<<"Ingrese el titulo del libro: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin,l.titulo);
             cout<<"Ingrese el nombre del autor: ";
             getline(cin,l.autor);
             cout<<"Ingrese el genero: ";
             getline(cin,l.genero);
-            cout<<"Ingrese la fecha de publicacion del libro";
+            cout<<"Ingrese la fecha de publicacion del libro: ";
             getline(cin,l.fecha_publicacion);
             cout<<"Ingrese la editorial: ";
             getline(cin,l.editorial);
             cout<<"Ingrese el precio del libro: ";
             cin>>l.precio;
-        }
-        else{
-            temp<<line<<endl;
+
+            temp<<l.id<<','<<l.titulo<<','<<l.autor<<','<<l.genero<<','<<l.fecha_publicacion<<','<<l.editorial<<','<<l.precio<<endl;
         }
     }
     bookfile.close();
@@ -268,55 +277,58 @@ void ModificarDatosLibros(){
 }
 
 void AgregarDatosPersonas(){
-    ofstream people_file("People.csv", ios::app);
-    ifstream people_file2("People.csv");
+    ifstream people_file2("Clients.csv");
     string line;
     Persona p;
     int new_id = 0;
 
-    while(getline(people_file2,line)){
+    while(getline(people_file2, line)) {
         new_id++;
     }
-
-    cout<<"Ingrese el nombre de la persona: ";
-    getline(cin,p.Nombre);
-    cout<<"Ingrese el apellido de la persona: ";
-    getline(cin,p.Apellido);
-    cout<<"Ingrese el correo de la persona: ";
-    getline(cin,p.Email);
-    cout<<"Ingrese la clave de la persona: ";
-    getline(cin,p.Clave);
-    cout<<"Ingrese la cantidad de libros prestados: ";
-    cin>>p.libros_prestados;
-    cout<<"Ingrese el status de la persona: ";
-    getline(cin,p.status);
-
-    people_file<<p.id<<","<<p.Nombre<<","<<p.Apellido<<","<<p.Email<<","<<p.Clave<<","<<p.libros_prestados<<","<<p.status<<endl;
-    people_file.close();
     people_file2.close();
+    p.id = new_id;
+    cout << "Ingrese el nombre de la persona: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, p.Nombre);
+    cout << "Ingrese el apellido de la persona: ";
+    getline(cin, p.Apellido);
+    cout << "Ingrese el correo de la persona: ";
+    getline(cin, p.Email);
+    cout << "Ingrese la clave de la persona: ";
+    getline(cin, p.Clave);
+    cout << "Ingrese la cantidad de libros prestados: ";
+    cin >> p.libros_prestados;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Ingrese el status de la persona: ";
+    getline(cin, p.status);
+
+    ofstream people_file("Clients.csv", ios::app);
+
+
+    people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << p.libros_prestados << "," << p.status << endl;
+    people_file.close();
 }
+
 
 void EliminarDatosPersonas(){
     Persona p;
-
-    cout<<"Ingrese el id de la persona que desea eliminar: ";
+    cout<<"Ingrese el id para saber que persona desea eliminar: ";
     cin>>p.id;
     ofstream temp("temp.csv");
-    ifstream people_file("People.csv");
+    ifstream peoplefile("Clients.csv");
     string line;
 
-    while(getline(people_file,line)){
-        int actual_id = atoi(line.substr(0,line.find(',')).c_str());
+    while(getline(peoplefile,line)){
+        int actual_id = atoi(line.substr(0,line.find(';')).c_str());
         if(actual_id != p.id){
             temp<<line<<endl;
         }
     }
-    people_file.close();
+    peoplefile.close();
     temp.close();
 
-    remove("People.csv");
-    rename("temp.csv","People.csv");
-    cout<<"Los datos fueron eliminados exitosamente"<<endl;
+    remove("Clients.csv");
+    rename("temp.csv","Clients.csv");
 }
 
 void ModificarDatosPersonas(){

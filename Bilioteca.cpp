@@ -38,19 +38,105 @@ void EliminarDatosPersonas();
 void ModificarDatosPersonas();
 
 int main(){
-int status = 0;
-while(status!=1 and status!=2){
-cout<<"Usted es un admin o un cliente?\n1.-Admin\n2.-Cliente"<<endl;
-cin>>status;
+string line;
+Persona p;
+int opcion, opcion2, opcion3,opcion4;
+bool opcionvalida = false;
 
-if(status==1){
-    cout<<"Usted es un admin"<<endl;
+
+cout<<"Ingrese su correo: ";
+getline(cin,p.Email);
+cout<<"Ingrese su clave: ";
+getline(cin,p.Clave);
+ifstream people_file("People.csv");
+
+while(getline(people_file,line)){
+stringstream ss(line);
+string id, nombre, apellido, search_email, password, borrowed_books,status;
+
+getline(ss, id, ',');
+getline(ss,nombre, ',');
+getline(ss,apellido, ',');
+getline(ss,search_email, ',');
+getline(ss,password, ',');
+getline(ss,borrowed_books, ',');
+getline(ss,status,',');
+if(search_email == p.Email && password == p.Clave){
+        if(status == "admin"){
+        cout<<"Bienvenido a la app de la biblioteca, que desea hacer hoy?"<<endl
+        <<"1.- Administrar datos de clientes"<<endl
+        <<"2.- Administrar datos de libros"<<endl
+        <<"3.- Comprar o retirar libros"<<endl;
+        cin>>opcion;
+
+        if(opcion>=1 && opcion<=3){
+            opcionvalida = true;
+        }else{
+            cout<<"Opcion invalida, por favor ingrese una dentro del rango"<<endl;
+        }
+        while(!opcionvalida);
+
+        switch(opcion){
+
+            case 1:{
+            cout<<"Que desea?"<<endl
+            <<"1.- Agregar Cliente"<<endl
+            <<"2.- Modificar Cliente"<<endl
+            <<"3.- Eliminar Cliente"<<endl;
+            cin>>opcion2;
+            if(opcion2 == 1){
+                AgregarDatosPersonas();
+            }else if(opcion2 == 2){
+                ModificarDatosPersonas();
+            
+            }else if(opcion2 == 3){
+                EliminarDatosPersonas();
+            }
+            }
+            break;
+
+            case 2: {
+            cout<<"Que desea?"<<endl
+            <<"1.- Agregar Libro"<<endl
+            <<"2.- Modificar Libro"<<endl
+            <<"3.- Eliminar Libro"<<endl;
+            cin>>opcion3;
+            if(opcion3 == 1){
+                AgregarDatosLibros();
+            }else if(opcion3 == 2){
+                ModificarDatosLibros();
+            }else if(opcion3 == 3){
+                EliminarDatosLibros();
+            }
+            }
+            break;
+
+            case 3: {
+
+            }break;
+        }
+        }else if(status == "cliente"){
+        cout<<"Que desea hacer?"<<endl
+        <<"1.- Comprar un libro "<<endl
+        <<"2.- Prestar un libro "<<endl;
+        cin>>opcion4;
+        
+        switch(opcion4){
+
+            case 1: {
+        cout<<"funcion no disponible"<<endl;
+            }break;
+        
+            case 2: {
+        cout<<"funcion no disponible"<<endl;
+            }break;
+        }
+        }
+    }
 }
-else if(status==2){
-    cout<<"Usted es un cliente"<<endl;
+
 }
-}
-}
+
 void LeerDatosLibros(const string &filename, libros catalog[], int &catalogsize){
     ifstream booksfile(filename);
     string line;

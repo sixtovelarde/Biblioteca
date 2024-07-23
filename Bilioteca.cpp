@@ -25,6 +25,7 @@ struct libros{
     string fecha_publicacion;
     string editorial;
     float precio;
+    string disponibilidad_libros;
 };
 
 
@@ -423,28 +424,51 @@ void RegistroNuevoUsuario(){
     cout<<"Usuario registrado, inicie sesion"<<endl;
 }
 void SuspenderUsuario() {
-    Persona p;
-    cout << "Ingrese el id de la persona que desea suspender: ";
-    cin >> p.id;
+    while (true) {
+        Persona p;
+        cout << "Ingrese el id de la persona que desea suspender: ";
+        cin >> p.id;
 
-    ofstream temp("temp.csv");
-    ifstream archivo_clientes("Clients.csv");
-    string line;
+        ofstream temp("temp.csv");
+        ifstream archivo_clientes("Clients.csv");
+        string line;
 
-    while (getline(archivo_clientes, line)) {
-        int id_actual = atoi(line.substr(0, line.find(',')).c_str());
-        if (id_actual == p.id) {
+        bool encontrado = false;
+        bool es_admin = false;
+
+        while (getline(archivo_clientes, line)) {
+            int id_actual = atoi(line.substr(0, line.find(',')).c_str());
             size_t lastDelimiterPos = line.find_last_of(',');
-            string updatedLine = line.substr(0, lastDelimiterPos) + ",suspendido";
-            temp << updatedLine << endl;
+
+            if (id_actual == p.id) {
+                encontrado = true;
+                string status = line.substr(lastDelimiterPos + 1);
+                if (status == "admin") {
+                    es_admin = true;
+                    cout << "No se puede suspender a un administrador." << endl;
+                    temp << line << endl; // Mantener la línea sin cambios
+                } else {
+                    string updatedLine = line.substr(0, lastDelimiterPos) + ",suspendido";
+                    temp << updatedLine << endl;
+                    cout << "Cliente suspendido" << endl;
+                }
+            } else {
+                temp << line << endl;
+            }
+        }
+        archivo_clientes.close();
+        temp.close();
+
+        if (encontrado && !es_admin) {
+            remove("Clients.csv");
+            rename("temp.csv", "Clients.csv");
+            break; // Salir del bucle si se suspendió correctamente
         } else {
-            temp << line << endl;
+            remove("temp.csv");
+            if (!encontrado) {
+                cout << "Persona con ID " << p.id << " no encontrada." << endl;
+            }
+            cout << "Intente nuevamente." << endl;
         }
     }
-    archivo_clientes.close();
-    temp.close();
-
-    remove("Clients.csv");
-    rename("temp.csv", "Clients.csv");
-    cout << "Cliente suspendido" << endl;
 }

@@ -40,6 +40,7 @@ void EliminarDatosPersonas();
 void ModificarDatosPersonas();
 
 void RegistroNuevoUsuario();
+void SuspenderUsuario();
 
 int main(){
 string line;
@@ -71,10 +72,11 @@ if(search_email == p.Email && password == p.Clave){
         cout<<"Bienvenido a la app de la biblioteca, que desea hacer hoy?"<<endl
         <<"1.- Administrar datos de clientes"<<endl
         <<"2.- Administrar datos de libros"<<endl
-        <<"3.- Comprar o retirar libros"<<endl;
+        <<"3.- Comprar o retirar libros"<<endl
+        <<"4.- Suspender un usuario"<<endl;
         cin>>opcion;
 
-        if(opcion>=1 && opcion<=3){
+        if(opcion>=1 && opcion<=4){
             opcionvalida = true;
         }else{
             cout<<"Opcion invalida, por favor ingrese una dentro del rango"<<endl;
@@ -119,6 +121,9 @@ if(search_email == p.Email && password == p.Clave){
             case 3: {
 
             }break;
+            case 4:{
+            SuspenderUsuario();
+            }
         }
         }else if(status == "cliente"){
         cout<<"Que desea hacer?"<<endl
@@ -416,4 +421,30 @@ void RegistroNuevoUsuario(){
     people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << "0" << "," << "cliente" << endl;
     people_file.close();
     cout<<"Usuario registrado, inicie sesion"<<endl;
+}
+void SuspenderUsuario() {
+    Persona p;
+    cout << "Ingrese el id de la persona que desea suspender: ";
+    cin >> p.id;
+
+    ofstream temp("temp.csv");
+    ifstream archivo_clientes("Clients.csv");
+    string line;
+
+    while (getline(archivo_clientes, line)) {
+        int id_actual = atoi(line.substr(0, line.find(',')).c_str());
+        if (id_actual == p.id) {
+            size_t lastDelimiterPos = line.find_last_of(',');
+            string updatedLine = line.substr(0, lastDelimiterPos) + ",suspendido";
+            temp << updatedLine << endl;
+        } else {
+            temp << line << endl;
+        }
+    }
+    archivo_clientes.close();
+    temp.close();
+
+    remove("Clients.csv");
+    rename("temp.csv", "Clients.csv");
+    cout << "Cliente suspendido" << endl;
 }

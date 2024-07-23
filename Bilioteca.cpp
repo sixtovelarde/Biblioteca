@@ -39,12 +39,14 @@ void AgregarDatosPersonas();
 void EliminarDatosPersonas();
 void ModificarDatosPersonas();
 
+void RegistroNuevoUsuario();
+
 int main(){
 string line;
 Persona p;
-int opcion, opcion2, opcion3,opcion4;
+int opcion, opcion2, opcion3,opcion4,opcion5;
 bool opcionvalida = false;
-
+bool continuar = true;
 
 cout<<"Ingrese su correo: ";
 getline(cin,p.Email);
@@ -135,11 +137,26 @@ if(search_email == p.Email && password == p.Clave){
             }break;
         }
         }
+    }else{
+        while(continuar){
+        cout<<"Usuario incorrecto, al parecer aun no tienes una cuenta :("<<endl
+        <<"Deseas registrarte?"<<endl
+        <<"1.- Si "<<endl
+        <<"2.- No "<<endl;
+        cin>>opcion5;
+        switch(opcion5){
+            case 1:{
+                RegistroNuevoUsuario();
+                continuar = false;
+            }break;
+            case 2:{
+                continuar = false;
+            }break;
+        }
+        }
     }
 }
-
 }
-
 void LeerDatosLibros(const string &filename, libros catalog[], int &catalogsize){
     ifstream booksfile(filename);
     string line;
@@ -370,4 +387,33 @@ void ModificarDatosPersonas(){
     remove("Clients.csv");
     rename("temp.csv","Clients.csv");
     cout<<"Los datos fueron modificados exitosamente"<<endl;
+}
+
+void RegistroNuevoUsuario(){
+    ifstream people_file2("Clients.csv");
+    string line;
+    Persona p;
+    int new_id = 0;
+
+    while(getline(people_file2, line)) {
+        new_id++;
+    }
+    people_file2.close();
+    p.id = new_id;
+    cout << "Ingrese su nombre: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, p.Nombre);
+    cout << "Ingrese su apellido: ";
+    getline(cin, p.Apellido);
+    cout << "Ingrese su correo: ";
+    getline(cin, p.Email);
+    cout << "Ingrese su clave: ";
+    getline(cin, p.Clave);
+
+    ofstream people_file("Clients.csv", ios::app);
+
+
+    people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << "0" << "," << "cliente" << endl;
+    people_file.close();
+    cout<<"Usuario registrado, inicie sesion"<<endl;
 }

@@ -209,3 +209,63 @@ void AgregarDatosPersonas(){
     people_file.close();
     people_file2.close();
 }
+
+void EliminarDatosPersonas(){
+    Persona p;
+
+    cout<<"Ingrese el id de la persona que desea eliminar: ";
+    cin>>p.id;
+    ofstream temp("temp.csv");
+    ifstream people_file("People.csv");
+    string line;
+
+    while(getline(people_file,line)){
+        int actual_id = atoi(line.substr(0,line.find(',')).c_str());
+        if(actual_id != p.id){
+            temp<<line<<endl;
+        }
+    }
+    people_file.close();
+    temp.close();
+
+    remove("People.csv");
+    rename("temp.csv","People.csv");
+    cout<<"Los datos fueron eliminados exitosamente"<<endl;
+}
+
+void ModificarDatosPersonas(){
+    Persona p;
+    cout<<"Ingrese el id de la persona que desea modificar: ";
+    cin>>p.id;
+
+    ofstream temp("temp.csv");
+    ifstream people_file("People.csv");
+    string line;
+
+    while(getline(people_file,line)){
+        int actual_id = atoi(line.substr(0,line.find(',')).c_str());
+        if(actual_id == p.id){
+            cout<<"Ingrese el nombre de la persona: ";
+            getline(cin,p.Nombre);
+            cout<<"Ingrese el apellido de la persona: ";
+            getline(cin,p.Apellido);
+            cout<<"Ingrese el correo de la persona: ";
+            getline(cin,p.Email);
+            cout<<"Ingrese la clave de la persona: ";
+            getline(cin,p.Clave);
+            cout<<"Ingrese la cantidad de libros prestados de la persona: ";
+            cin>>p.libros_prestados;
+            cout<<"Ingrese el status de la persona: ";
+            getline(cin,p.status);
+        }
+        else{
+            temp<<line<<endl;
+        }
+    }
+    people_file.close();
+    temp.close();
+
+    remove("People.csv");
+    rename("temp.csv","People.csv");
+    cout<<"Los datos fueron modificados exitosamente"<<endl;
+}

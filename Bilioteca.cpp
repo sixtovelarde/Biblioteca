@@ -78,7 +78,7 @@ if(search_email == p.Email && password == p.Clave){
             cout<<"Opcion invalida, por favor ingrese una dentro del rango"<<endl;
         }
         while(!opcionvalida);
-
+        people_file.close();
         switch(opcion){
 
             case 1:{
@@ -220,8 +220,8 @@ void EliminarDatosLibros(){
     libros l;
     cout<<"Ingrese el id para saber que libro desea eliminar: ";
     cin>>l.id;
-    ofstream temp("temp.csv");
-    ifstream bookfile("Books.csv");
+    ofstream temp("temp.csv",ios::out);
+    ifstream bookfile("Books.csv",ios::in);
     string line;
 
     while(getline(bookfile,line)){
@@ -314,8 +314,8 @@ void EliminarDatosPersonas(){
     Persona p;
     cout<<"Ingrese el id para saber que persona desea eliminar: ";
     cin>>p.id;
-    ofstream temp("temp.csv");
-    ifstream peoplefile("Clients.csv");
+    ofstream temp("temp.csv",ios::out);
+    ifstream peoplefile("Clients.csv",ios::in);
     string line;
 
     while(getline(peoplefile,line)){
@@ -336,14 +336,18 @@ void ModificarDatosPersonas(){
     cout<<"Ingrese el id de la persona que desea modificar: ";
     cin>>p.id;
 
-    ofstream temp("temp.csv");
-    ifstream people_file("People.csv");
+    ofstream temp("temp.csv",ios::out);
+    ifstream people_file("Clients.csv",ios::in);
     string line;
 
     while(getline(people_file,line)){
         int actual_id = atoi(line.substr(0,line.find(',')).c_str());
-        if(actual_id == p.id){
+        if(actual_id != p.id){
+            temp<<line<<endl;
+        }
+        else{
             cout<<"Ingrese el nombre de la persona: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin,p.Nombre);
             cout<<"Ingrese el apellido de la persona: ";
             getline(cin,p.Apellido);
@@ -354,16 +358,16 @@ void ModificarDatosPersonas(){
             cout<<"Ingrese la cantidad de libros prestados de la persona: ";
             cin>>p.libros_prestados;
             cout<<"Ingrese el status de la persona: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin,p.status);
-        }
-        else{
-            temp<<line<<endl;
+
+            temp<<p.id<<','<<p.Nombre<<','<<p.Apellido<<','<<p.Email<<','<<p.Clave<<','<<p.libros_prestados<<','<<p.status<<endl;
         }
     }
     people_file.close();
     temp.close();
 
-    remove("People.csv");
-    rename("temp.csv","People.csv");
+    remove("Clients.csv");
+    rename("temp.csv","Clients.csv");
     cout<<"Los datos fueron modificados exitosamente"<<endl;
 }

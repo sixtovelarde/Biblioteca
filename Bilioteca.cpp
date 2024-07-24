@@ -46,6 +46,7 @@ void SuspenderUsuario();
 
 void ComprarLibro(const string &authenticatedEmail);
 void PrestarLibro(const string &authenticatedEmail);
+void DevolverLibro(const string &authenticatedEmail);
 
 int main() {
     string line;
@@ -94,7 +95,7 @@ int main() {
 
     switch (admin_cliente) {
         case 1: {
-            cout << "Que desea hacer hoy?\n1.-Gestionar datos libros\n2.-Gestionar datos personas\n3.-Suspender un usuario\n4.-Comprar o Prestar un libro\n";
+            cout << "Que desea hacer hoy?\n1.-Gestionar datos libros\n2.-Gestionar datos personas\n3.-Suspender un usuario\n4.-Comprar, Prestar o Devolver un libro\n";
             cin >> opcion;
             switch (opcion) {
                 case 1: {
@@ -148,7 +149,8 @@ int main() {
                 case 4: {
                     cout << "Seleccione una opcion" << endl
                          << "1.-Comprar un libro" << endl
-                         << "2.-Prestar un libro" << endl;
+                         << "2.-Prestar un libro" << endl
+                         << "3.-Devolver un libro" << endl;
                     cin >> opcion4;
                     switch (opcion4) {
                         case 1: {
@@ -157,6 +159,10 @@ int main() {
                         }
                         case 2: {
                             PrestarLibro(authenticatedEmail);
+                            break;
+                        }
+                        case 3: {
+                            DevolverLibro(authenticatedEmail);
                             break;
                         }
                     }
@@ -168,7 +174,8 @@ int main() {
         case 2: {
             cout << "Que desea hacer hoy?" << endl
                  << "1.-Comprar un libro" << endl
-                 << "2.-Prestar un libro" << endl;
+                 << "2.-Prestar un libro" << endl
+                 << "3.-Devolver un libro" << endl;
             cin >> opcion5;
             switch (opcion5) {
                 case 1: {
@@ -177,6 +184,10 @@ int main() {
                 }
                 case 2: {
                     PrestarLibro(authenticatedEmail);
+                    break;
+                }
+                case 3: {
+                    DevolverLibro(authenticatedEmail);
                     break;
                 }
             }
@@ -659,3 +670,144 @@ void PrestarLibro(const string &authenticatedEmail) {
         cout << "El libro no se encontró en el inventario.\n";
     }
 }
+
+void DevolverLibro(const string &authenticatedEmail) {
+    ifstream peopleFileIn("Clients.csv");
+    string peopleLine;
+    string borrowedBooks;
+
+    // Buscar los libros prestados del usuario autenticado
+    while (getline(peopleFileIn, peopleLine)) {
+        stringstream ss(peopleLine);
+        string id, nombre, apellido, email, clave, borrowedBooksStr, purchasedBooks, status;
+
+        getline(ss, id, ',');
+        getline(ss, nombre, ',');
+        getline(ss, apellido, ',');
+        getline(ss, email, ',');
+        getline(ss, clave, ',');
+        getline(ss, borrowedBooksStr, ',');
+        getline(ss, purchasedBooks, ',');
+        getline(ss, status, ',');
+
+        if (email == authenticatedEmail) {
+            borrowedBooks = borrowedBooksStr;
+            break;
+        }
+    }
+    peopleFileIn.close();
+
+    if (borrowedBooks.empty()) {
+        cout << "No tienes libros prestados.\n";
+        return;
+    }
+
+    // Mostrar los libros prestados
+    cout << "Libros prestados:\n";
+    stringstream ssBooks(borrowedBooks);
+    string bookIdStr;
+    while (getline(ssBooks, bookIdStr, ';')) {
+        cout << "ID del libro: " << bookIdStr << endl;
+    }
+
+    // Pedir el ID del libro a devolver
+    int returnBookId;
+    cout << "Ingrese el ID del libro que desea devolver: ";
+    cin >> returnBookId;
+
+    // Verificar si el ID ingresado está en la lista de libros prestados
+    stringstream ssCheck(borrowedBooks);
+    bool found = false;
+    string newBorrowedBooks;
+    while (getline(ssCheck, bookIdStr, ';')) {
+        try {
+            if (!bookIdStr.empty() && stoi(bookIdStr) == returnBookId) {
+                found = true;
+            } else {
+                if (!newBorrowedBooks.empty()) {
+                    newBorrowedBooks += ";";
+                }
+                newBorrowedBooks += bookIdStr;
+            }
+        } catch (const invalid_argument &e) {
+            cout << "Error al convertir el ID del libro: " << bookIdStr << endl;
+            continue;
+        }
+    }
+
+    if (!found) {
+        cout << "ID de libro no válido.\n";
+        return;
+    }
+
+    // Leer y actualizar el archivo de clientes
+    ifstream peopleFileIn2("Clients.csv");
+    ofstream peopleFileOut("Clients_temp.csv");
+    while (getline(peopleFileIn2, peopleLine)) {
+        stringstream ss(peopleLine);
+        string id, nombre, apellido, email, clave, borrowedBooksStr, purchasedBooks, status;
+
+        getline(ss, id, ',');
+        getline(ss, nombre, ',');
+        getline(ss, apellido, ',');
+        getline(ss, email, ',');
+        getline(ss, clave, ',');
+        getline(ss, borrowedBooksStr, ',');
+        getline(ss, purchasedBooks, ',');
+        getline(ss, status, ',');
+
+        if (email == authenticatedEmail) {
+            peopleFileOut << id << "," << nombre << "," << apellido << "," << email << "," << clave << "," << newBorrowedBooks << "," << purchasedBooks << "," << status << "\n";
+        } else {
+            peopleFileOut << id << "," << nombre << "," << apellido << "," << email << "," << clave << "," << borrowedBooksStr << "," << purchasedBooks << "," << status << "\n";
+        }
+    }
+    peopleFileIn2.close();
+    peopleFileOut.close();
+    remove("Clients.csv");
+    rename("Clients_temp.csv", "Clients.csv");
+
+    // Leer y actualizar el archivo de libros
+    ifstream booksFileIn("Books.csv");
+    ofstream booksFileOut("Books_temp.csv");
+    string booksLine;
+
+    // Copiar la línea del encabezado
+    if (getline(booksFileIn, booksLine)) {
+        booksFileOut << booksLine << "\n";
+    }
+
+    while (getline(booksFileIn, booksLine)) {
+        stringstream ss(booksLine);
+        string idStr, title, author, genre, pubDate, publisher, priceStr, availability, quantityStr;
+
+        getline(ss, idStr, ',');
+        getline(ss, title, ',');
+        getline(ss, author, ',');
+        getline(ss, genre, ',');
+        getline(ss, pubDate, ',');
+        getline(ss, publisher, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, availability, ',');
+        getline(ss, quantityStr, ',');
+
+        try {
+            if (!idStr.empty() && stoi(idStr) == returnBookId) {
+                int quantity = stoi(quantityStr) + 1;
+                booksFileOut << idStr << "," << title << "," << author << "," << genre << "," << pubDate << "," << publisher << "," << priceStr << "," << availability << "," << quantity << "\n";
+            } else {
+                booksFileOut << idStr << "," << title << "," << author << "," << genre << "," << pubDate << "," << publisher << "," << priceStr << "," << availability << "," << quantityStr << "\n";
+            }
+        } catch (const invalid_argument &e) {
+            cout << "Error al convertir el ID del libro: " << idStr << endl;
+            continue;
+        }
+    }
+    booksFileIn.close();
+    booksFileOut.close();
+    remove("Books.csv");
+    rename("Books_temp.csv", "Books.csv");
+
+    cout << "Libro devuelto con éxito!\n";
+}
+

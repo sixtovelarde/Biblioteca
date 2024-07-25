@@ -1,0 +1,201 @@
+id,title,author,genre,publication_date,publisher,price,books_availability,number_books
+1,The Lost Key,Cedric Wrigglesworth,mystery,4/22/1950,Aimbu,36.92,disponible,25
+2,The World of Tomorrow,Edna Selburn,non-fiction,11/12/1991,Meezzy,30.52,disponible,25
+3,Whispers in the Wind,Hasheem Yeatman,fiction,5/6/1905,Browsezoom,29.28,disponible,25
+4,Shadow of the Past,Dorothee Gigg,mystery,5/28/1974,Bubblebox,26.98,disponible,25
+5,Love Beyond Time,Tanhya Schneider,romance,6/14/1904,Yakijo,35.01,disponible,25
+6,The Last Embrace,Mala Esmead,fiction,3/18/1967,Quinu,46.63,disponible,25
+7,Hearts Entwined,Kellen O'Connell,romance,5/19/2010,Wikizz,9.2,disponible,25
+8,The Untold Story,Johanna Wadhams,non-fiction,8/28/1994,Feedmix,46.45,disponible,25
+9,The Sweetest Dream,Jude Sammon,romance,12/13/1998,Rhynoodle,11.98,disponible,25
+10,Journey Through Time,Nial Dumphries,non-fiction,2/25/1924,Devpulse,9.56,disponible,25
+11,The Mystery of the Silver Spoon,Howard Blowfelde,mystery,10/21/1925,Yambee,38.8,disponible,25
+12,Beyond the Horizon,Ev Lethem,fiction,9/24/1970,Youspan,41.55,disponible,25
+13,The Garden of Wishes,Lennard Eburne,romance,12/29/2016,Photojam,24.74,disponible,25
+14,The Journey Within,Onfre Olenchenko,non-fiction,8/25/1927,Flashpoint,19.51,disponible,25
+15,Winds of Change,Bancroft Blundin,romance,9/3/1972,Skilith,20.98,disponible,25
+16,A Tale of Two Souls,Siouxie Cogswell,fiction,2/19/1939,Zooveo,33.77,disponible,25
+17,The Golden Path,Christie Duthie,fiction,9/10/1931,Pixonyx,34.81,disponible,25
+18,Echoes of the Past,Addy Curme,fiction,5/24/1904,Dabfeed,11.01,disponible,25
+19,Silent Shadows,Feodor Hindmore,fiction,9/21/1904,Browsecat,38.59,disponible,25
+20,The Language of Flowers,Gabriel Fearnill,romance,12/2/1989,Jaloo,28.65,disponible,25
+21,Beyond the Stars,Donall Croser,fiction,12/23/1979,Skimia,15.63,disponible,25
+22,The Forgotten Temple,Ysabel Stansfield,romance,11/30/1944,Skajo,23.21,disponible,25
+23,The Secrets We Keep,Antonino Duffyn,mystery,12/27/2009,LiveZ,19.18,disponible,25
+24,The Art of Deception,Tersina Guilder,mystery,7/10/1938,Mudo,15.07,disponible,25
+25,In Search of Meaning,Ad Veitch,non-fiction,11/9/1946,Zoombox,27.45,disponible,25
+26,Shattered Dreams,Hewett Prigmore,mystery,7/22/2014,Lajo,28.8,disponible,25
+27,Beyond the Waves,Justinn Jannaway,fiction,4/5/1972,Wikivu,22.66,disponible,25
+28,The Untamed Mind,Sherlocke Croy,non-fiction,4/25/1941,Avavee,44.43,disponible,25
+29,The Phoenix Rises,Shani Drogan,non-fiction,10/25/2016,Tagopia,43.83,disponible,25
+30,Hidden Truths,Agretha Cutchie,non-fiction,4/18/1967,Bubbletube,36.47,disponible,25
+31,A Love to Remember,Joline de Clerq,romance,1/8/1998,Jayo,7.9,disponible,25
+32,The Haunting of Blackwood Manor,Chip Lyven,mystery,10/8/1964,Bubbletube,21.35,disponible,25
+33,The Power of Resilience,Lyda Works,non-fiction,10/23/2000,Quimba,42.75,disponible,25
+34,Beneath the Surface,Quintus Gadault,fiction,7/14/1901,Jabbertype,17.38,disponible,25
+35,The Edge of Reason,Temple Gorusso,fiction,2/2/2015,Livefish,12.22,disponible,25
+36,The Heart's Compass,Carmon Kyberd,fiction,5/27/2003,Kimia,28.66,disponible,25
+37,The Dark Side of the Moon,Renato Grigorini,fiction,1/21/1986,Eire,49.32,disponible,25
+38,Whispers of Eternity,Celinda MacKonochie,romance,9/2/2018,Mymm,32.29,disponible,25
+39,Dancing with Shadows,Elyssa Crannach,romance,8/25/1976,Dabfeed,19.71,disponible,25
+40,The Portrait of Love,Kimberlee Bilofsky,fiction,8/26/1980,Realcube,31.91,disponible,25
+41,The Rise of Legends,Miltie Everall,fiction,10/3/1980,Skidoo,34.96,disponible,25
+42,Love's Secret Garden,Catlin Goodlett,romance,10/20/1950,Wikido,35.41,disponible,25
+43,The Crimson Trail,Cynthea Reglar,mystery,9/10/1996,Rooxo,42.25,disponible,25
+44,The Forgotten Kingdom,Perl Hatcher,fiction,10/29/1926,Demivee,45.94,disponible,25
+45,The Wisdom of Ages,Susie Lovitt,non-fiction,7/10/1971,Oyoloo,22.77,disponible,25
+46,The Enigma,Lianna Turland,mystery,7/30/1910,Linkbridge,28.86,disponible,25
+47,The Fabric of Reality,Bren Armstead,non-fiction,7/12/1919,Jazzy,25.53,disponible,25
+48,Unseen Forces,Aldridge Volker,non-fiction,4/15/2009,Linkbridge,39.3,disponible,25
+49,Breaking the Silence,Raffarty Geoghegan,non-fiction,2/3/1946,Mynte,9.32,disponible,25
+50,The Silent Observer,Craig Mateus,mystery,6/15/2015,Dabshots,20.13,disponible,25
+51,The Colors of Passion,Nanci Eveleigh,fiction,7/9/1976,Shuffletag,39.61,disponible,25
+52,Waves of Desire,Loren Bassford,romance,6/3/1916,Kanoodle,23.64,disponible,25
+53,The Uncharted Path,Dalt Cardew,fiction,8/13/1944,Skiba,22.2,disponible,25
+54,The Dance of Flames,Serge Duffett,romance,6/20/1993,Muxo,8.7,disponible,25
+55,The Night's Whisper,Sianna Hearnshaw,fiction,8/30/1980,Photolist,46.4,disponible,25
+56,The Quest for Truth,Zollie Haszard,non-fiction,9/8/2004,Quinu,48.24,disponible,25
+57,The Healing Journey,Amelie Reuben,non-fiction,7/8/2008,Vimbo,18.76,disponible,25
+58,Beyond the Rainbow,Engracia Kemmey,romance,1/20/2015,Rhybox,17.43,disponible,25
+59,The Philosopher's Stone,Davidson Wiggins,non-fiction,4/26/1950,Zooxo,44.23,disponible,25
+60,The Light of Dawn,Spense Gayforth,fiction,5/19/1933,Thoughtbridge,34.31,disponible,25
+61,The Hidden Treasure,Lucie Aynsley,fiction,4/20/1961,Topicware,31.83,disponible,25
+62,The Echoing Silence,Drusie Rockcliff,fiction,3/12/1945,Thoughtsphere,39.16,disponible,25
+63,The Seasons of Love,Damiano Goodlip,romance,7/3/1921,Eamia,30.08,disponible,25
+64,The Sands of Time,Christoper Orlton,fiction,6/4/1963,Tazzy,20.18,disponible,25
+65,The Wisdom Within,Earle McRae,non-fiction,1/3/1993,Photofeed,27.01,disponible,25
+66,The Heart's Journey,Fergus Gullifant,romance,4/10/2001,Rhycero,7.67,disponible,25
+67,The Depths of the Ocean,Laughton McKeating,mystery,4/12/1927,Avamm,11.99,disponible,25
+68,The Enchanted Forest,Gayler Casaroli,fiction,3/24/2017,Leenti,44.66,disponible,25
+69,Beneath the Stars,Vaughan Treves,mystery,12/29/1990,Zoonoodle,19.69,disponible,25
+70,The Essence of Time,Gael Torrent,non-fiction,9/24/1918,Eayo,34.07,disponible,25
+71,The Shadows of the Past,Arnold Bridge,romance,8/26/1940,Devbug,49.29,disponible,25
+72,The Secrets of the Sea,Emmit Wadley,mystery,10/8/1961,Rhynyx,8.92,disponible,25
+73,The Gates of Heaven,Norris Timpany,mystery,9/24/1902,Jazzy,47.0,disponible,25
+74,The Wanderer's Tale,Juieta Belison,mystery,12/28/2004,Tazz,24.91,disponible,25
+75,The Heart's Echo,Bridget Saket,fiction,11/5/1995,Feedfire,8.02,disponible,25
+76,The Golden Threads,Alyson Cunrado,non-fiction,11/15/1968,Yodoo,13.92,disponible,25
+77,The Guardian's Legacy,Flossie Duckers,mystery,3/15/1991,Fliptune,18.83,disponible,25
+78,The Dance of Shadows,Arlyne Gatteridge,romance,8/8/1918,Fadeo,19.16,disponible,25
+79,The Secrets of the Mind,Nat Beaston,non-fiction,2/13/1963,Eire,12.47,disponible,25
+80,The Crystal Ball,Isabelle Hardway,romance,12/25/1908,Twitterbeat,21.65,disponible,25
+81,The Symphony of Life,Bette-ann Pollok,romance,7/17/1909,Blognation,10.59,disponible,25
+82,The Song of Silence,Roch Pickin,non-fiction,11/6/1996,Meemm,9.56,disponible,25
+83,The Wings of Hope,Kennett Benech,romance,9/21/1987,Realfire,18.88,disponible,25
+84,The Shadows We Cast,Gusella Keary,mystery,8/22/1998,Kayveo,43.43,disponible,25
+85,The Threads of Fate,Jennine Bloxsome,mystery,1/11/1948,Linkbuzz,31.77,disponible,25
+86,The Winds of Time,Valentin Eglin,romance,11/3/1991,Jamia,44.78,disponible,25
+87,The Chronicles of Destiny,Lucienne Garwood,mystery,12/4/2019,Jaxworks,36.4,disponible,25
+88,The Lost Paradise,Bradney Clows,fiction,9/25/1948,Geba,43.5,disponible,25
+89,The Art of Living,Randal Spir,non-fiction,11/30/2015,Aibox,21.68,disponible,25
+90,The Promise of Tomorrow,Perry Riseam,romance,9/30/1941,Divavu,18.13,disponible,25
+91,The Fire Within,Johannes Doohey,non-fiction,6/4/1967,Fadeo,28.71,disponible,25
+92,The Labyrinth of Life,Sauveur Clemes,non-fiction,6/14/2020,Rooxo,7.49,disponible,25
+93,The Heart's Desires,Cirillo Muscroft,romance,6/10/1940,Vitz,37.47,disponible,25
+94,The Rise of the Phoenix,Alejandra Maciejewski,romance,8/12/1940,Oyoba,43.34,disponible,25
+95,The Echoes of Yesterday,Dareen Twelves,fiction,6/24/1941,Riffwire,8.65,disponible,25
+96,The Silent Witness,Reena Lepper,mystery,9/9/1935,Edgeclub,40.21,disponible,25
+97,The Infinite Quest,Tessi Frankland,non-fiction,11/9/1972,Voolith,41.04,disponible,25
+98,The Forgotten Chronicles,Sollie Vanichev,fiction,11/23/2012,Skyble,33.04,disponible,25
+99,The Shadows of Memory,Traci Gibling,fiction,5/16/1994,Realbuzz,31.66,disponible,25
+100,The Sands of Time,Quinn Paoloni,non-fiction,6/26/1935,BlogXS,42.84,disponible,25
+101,The Forgotten Heir,Cordula Bonsey,mystery,7/7/1984,Nlounge,31.12,disponible,25
+102,The Journey to the Stars,Hobart Waumsley,non-fiction,11/12/1917,Realbuzz,10.51,disponible,25
+103,The Flames of Passion,Carce Jouaneton,romance,9/23/1967,Snaptags,11.03,disponible,25
+104,The Hidden Legacy,Kissie Phipard-Shears,fiction,11/14/1905,Janyx,21.83,disponible,25
+105,The Mirror of the Soul,Alma Rayne,non-fiction,8/30/1976,Feedbug,38.59,disponible,25
+106,The Dance of Dreams,Jeanelle Buxy,fiction,4/24/1973,Skivee,24.27,disponible,25
+107,The Science of Life,Sybilla Wigley,non-fiction,9/19/1984,Tavu,43.13,disponible,25
+108,The Golden Palace,Katerine Chasemoore,fiction,10/21/1917,Tagtune,45.01,disponible,25
+109,The Journey Home,Wallie Milam,non-fiction,8/31/1964,Gabvine,22.65,disponible,25
+110,The Shadow's Edge,Katharina Prestland,mystery,5/22/2015,Zava,46.08,disponible,25
+111,The Silent Echo,Moishe Galletly,fiction,7/26/1935,Twitterworks,16.78,disponible,25
+112,The Love We Find,Jereme Wharf,romance,7/8/1942,Brainlounge,27.67,disponible,25
+113,The Art of Persuasion,Yasmeen Crockatt,non-fiction,9/7/2001,Cogidoo,11.98,disponible,25
+114,The Crystal Heart,Shamus Geaveny,romance,12/21/1934,Flipbug,42.17,disponible,25
+115,The Wisdom of the Ancients,Forster Danis,non-fiction,3/2/1979,Shufflester,21.08,disponible,25
+116,The Heart's Calling,Katherina Dutton,romance,1/25/1903,Jayo,18.56,disponible,25
+117,The Tale of the Enchanted Forest,Maggy Edbrooke,romance,5/23/1966,Twitterwire,8.46,disponible,25
+118,The Keeper of Secrets,Fiona Dunsford,mystery,5/16/1928,Skivee,35.82,disponible,25
+119,The Dance of Stars,Golda Monelle,romance,6/1/1900,Eayo,27.1,disponible,25
+120,The Journey of the Mind,Krystal Bamlet,non-fiction,10/13/1953,Youspan,10.68,disponible,25
+121,The Labyrinth of Dreams,Barnabas Heaphy,fiction,7/31/1925,Bubblebox,40.45,disponible,25
+122,The Language of Love,Calli Ecclesall,romance,3/22/1956,Twinder,10.01,disponible,25
+123,The Heart of the Sea,Lillian Merrison,non-fiction,10/7/1910,Yodo,33.42,disponible,25
+124,The Song of the Forest,Erica Whitnall,fiction,6/19/1936,Avaveo,23.93,disponible,25
+125,The Dance of Flames,Dacia Dood,fiction,10/5/2000,Browseblab,36.38,disponible,25
+126,The Journey to the East,Stanislaus Chaim,romance,1/30/1995,Brainlounge,37.47,disponible,25
+127,The Heart's Melody,Maryanne Golda,mystery,3/25/1924,Jabbertype,32.69,disponible,25
+128,The Song of Silence,Doretta Wookey,fiction,11/15/2009,Jabbersphere,34.57,disponible,25
+129,The Edge of the Abyss,Arlie Storer,romance,10/23/2006,Photobug,48.12,disponible,25
+130,The Secret Garden,Lyda Sheasby,mystery,4/18/1986,Zoonder,43.28,disponible,25
+131,The Book of Wisdom,Herbert Kiehnlt,non-fiction,12/29/1963,Quatz,10.74,disponible,25
+132,The Hidden Fortress,Channa Prahl,fiction,9/16/1944,Wordpedia,11.07,disponible,25
+133,The Sands of Time,Quinlan Lattey,non-fiction,12/28/1939,Babbleopia,6.25,disponible,25
+134,The Golden Dawn,Meris Amott,romance,1/11/1926,BlogXS,46.24,disponible,25
+135,The Shadow of the Wind,Amity Fowell,mystery,8/15/1989,Jaxbean,28.15,disponible,25
+136,The Heart's Secret,Upton Rosenfrucht,romance,6/10/1954,Shufflebeat,47.9,disponible,25
+137,The Labyrinth of Night,Seana Ogborn,fiction,7/27/1959,Gabspot,25.88,disponible,25
+138,The Enigma of Time,Laurie Kibby,mystery,2/6/1986,Mudo,33.21,disponible,25
+139,The Secrets of the Mind,Ad Ulster,fiction,8/26/1950,Kaymbo,33.46,disponible,25
+140,The Dance of the Elements,Carlo Rein,romance,4/18/1937,Babbleopia,9.84,disponible,25
+141,The Shadow of the Mountain,Field Hands,mystery,6/9/1986,Jaloo,35.29,disponible,25
+142,The Garden of Dreams,Cirilo Wrintmore,non-fiction,6/21/1903,Photofeed,35.75,disponible,25
+143,The Light of the Stars,Stesha Shilston,non-fiction,3/29/2012,Ntags,8.31,disponible,25
+144,The Secrets of the Forest,Glynda Kalkofen,fiction,6/25/1932,BlogXS,13.26,disponible,25
+145,The Enchanted Garden,Deeann Claiton,romance,11/4/1906,Meetz,23.3,disponible,25
+146,The Symphony of the Soul,Pauli Hillborne,romance,11/3/1937,Wordify,27.63,disponible,25
+147,The Shadow of the Sun,Randy McInteer,romance,10/27/1906,Gabtype,35.13,disponible,25
+148,The Dance of the Waves,Dorthea Iacovacci,fiction,9/22/1976,Eare,34.51,disponible,25
+149,The Mystery of the Silver Star,Harvey Jellman,mystery,10/23/1921,Thoughtworks,18.73,disponible,25
+150,The Wisdom of the Earth,Lek Garz,non-fiction,1/4/1990,Zooveo,26.85,disponible,25
+151,The Book of Secrets,Eimile Beckensall,non-fiction,8/8/1987,Blogspan,18.79,disponible,25
+152,The Garden of Eden,Andrea McCraine,romance,1/28/1945,Linkbuzz,38.68,disponible,25
+153,The Lost Treasure,Iolanthe McLukie,mystery,9/12/2003,Myworks,38.59,disponible,25
+154,The Echo of the Sea,Carleen Durand,fiction,6/2/1985,Aimbo,20.46,disponible,25
+155,The Labyrinth of Memories,Rock Florentine,non-fiction,10/2/1903,Riffwire,15.88,disponible,25
+156,The Heart's Journey,Josiah Swetman,fiction,6/2/1956,Mycat,9.79,disponible,25
+157,The Light of Dawn,Cicily Mayes,fiction,10/26/1911,Thoughtbeat,22.44,disponible,25
+158,The Book of Life,Katrinka Dytham,non-fiction,11/5/2021,Browsedrive,25.88,disponible,25
+159,The Heart's Whisper,Sallee Esplin,romance,3/23/1961,Kwimbee,7.33,disponible,25
+160,The Shadow of the Forest,Inessa Perchard,mystery,3/2/1997,Meezzy,8.45,disponible,25
+161,The Symphony of the Stars,Jobyna Riceards,romance,8/29/1953,Chatterbridge,22.33,disponible,25
+162,The Enchanted Castle,Major Berkelay,romance,6/10/1990,Oozz,43.38,disponible,25
+163,The Secrets of the Sea,Blinni Itzkovici,mystery,5/15/1952,LiveZ,42.92,disponible,25
+164,The Dance of the Moon,Sonni Dicte,romance,9/11/1953,Innojam,39.85,disponible,25
+165,The Path to Enlightenment,Chelsea McNab,non-fiction,5/23/1919,Buzzster,20.25,disponible,25
+166,The Labyrinth of Shadows,Kelly Harmston,mystery,7/6/1947,Jatri,9.39,disponible,25
+167,The Enchanted Forest,Ellette Dymocke,mystery,7/27/1926,Skipstorm,17.77,disponible,25
+168,The Heart's Desire,Ashleigh Vaughn,romance,12/20/1985,Wordpedia,33.0,disponible,25
+169,The Garden of Dreams,Kati Blanch,romance,3/8/1912,Photobug,30.82,disponible,25
+170,The Light of the Moon,Arlinda Esch,mystery,12/6/1904,Mudo,47.32,disponible,25
+171,The Hidden Kingdom,Amandie Albasiny,fiction,10/7/1902,Mynte,36.66,disponible,25
+172,The Journey of Life,Bernardine Toombs,non-fiction,9/12/1934,Flashspan,36.52,disponible,25
+173,The Dance of Destiny,Damiano Gatheridge,fiction,2/12/1961,Linklinks,26.29,disponible,25
+174,The Heart's Secret,Antonia Sinkins,fiction,10/22/1915,Fadeo,45.64,disponible,25
+175,The Shadows of the Night,Rooney Firle,mystery,7/26/2006,Agimba,8.48,disponible,25
+176,The Echoes of the Past,Gabriel Gaisford,mystery,7/30/1994,Zoonder,9.27,disponible,25
+177,The Symphony of Love,Rossy Pockey,romance,5/15/1986,Zoonoodle,13.96,disponible,25
+178,The Book of Shadows,Rodolfo Costock,non-fiction,9/27/2002,Plajo,40.33,disponible,25
+179,The Secret of the Alchemist,Drugi Varney,non-fiction,11/3/1991,Pixonyx,48.46,disponible,25
+180,The Shadows of the Mind,Simeon Lean,mystery,10/1/1969,Demivee,25.4,disponible,25
+181,The Secrets of the Heart,Madlen Copley,mystery,7/16/1934,Photobean,15.51,disponible,25
+182,The Enchanted Garden,Arden Aland,fiction,5/2/1988,Vitz,26.44,disponible,25
+183,The Wisdom of the Ancients,Aurora Alpes,non-fiction,12/17/1925,Devbug,44.02,disponible,25
+184,The Heart's Whisper,Tris Perham,romance,4/15/1938,Zoomzone,27.45,disponible,25
+185,The Shadows of the Sea,Marc Duinkerk,mystery,5/12/1966,Trilia,14.63,disponible,25
+186,The Symphony of the Stars,Cristie Osan,romance,8/8/1952,Photofeed,17.13,disponible,25
+187,The Labyrinth of Time,Natividad Bedminster,non-fiction,12/22/1911,Bubblemix,13.3,disponible,25
+188,The Enchanted Castle,Emmerich Spavins,mystery,10/7/1921,Lazz,27.68,disponible,25
+189,The Journey of the Mind,Jamie Robshaw,fiction,5/19/1943,Quaxo,44.94,disponible,25
+190,The Heart's Echo,Krysta Rotge,mystery,6/22/1985,DabZ,21.49,disponible,25
+191,The Wisdom of the Ages,Peirce Pickett,non-fiction,3/15/1985,Meevee,25.14,disponible,25
+192,The Echoes of Silence,Grazia Collingwood,mystery,8/4/1941,Eayo,45.91,disponible,25
+193,The Secrets of the Ancients,Carmella Deakins,non-fiction,11/25/1974,Shufflebeat,44.89,disponible,25
+194,The Shadows of Time,Miller Revel,non-fiction,8/24/1963,Quamba,37.84,disponible,25
+195,The Journey to the Stars,Hunter Bernaciak,non-fiction,12/16/1963,Demimbu,38.03,disponible,25
+196,The Enigma of the Past,Clo Ziehms,fiction,1/8/1919,Camimbo,21.88,disponible,25
+197,The Dance of Shadows,Abba Muriel,non-fiction,5/20/1997,Zooveo,38.22,disponible,25
+198,The Echo of the Sea,Aimil Philipsen,romance,5/29/1982,Trudoo,12.92,disponible,25
+199,The Garden of Memories,Tarah Grange,fiction,6/17/1955,Feedbug,43.08,disponible,25
+200,The Secrets of the Stars,Ailene Greenshiels,romance,8/28/2010,Babblestorm,36.22,disponible,25

@@ -13,9 +13,9 @@ struct Persona {
     string Apellido;
     string Email;
     string Clave;
-    int id_libros_prestados;
+    string borrowed_books_ids;
+    string purchased_books_ids;
     string status;
-    int id_libros_comprados;
 };
 
 struct libros {
@@ -52,146 +52,143 @@ int main() {
     string line;
     Persona p;
     int opcion, opcion2, opcion3, opcion4, opcion5, admin_cliente = 0;
-    bool opcionvalida = false;
     bool continuar = true;
+    bool sessionActive = false;
+    string authenticatedEmail;
+    
+    while (continuar) {
+        if (!sessionActive) {
+            cout << "Ingrese su correo: ";
+            getline(cin, p.Email);
+            cout << "Ingrese su clave: ";
+            getline(cin, p.Clave);
+            ifstream people_file("Clients.csv");
+            
+            authenticatedEmail = p.Email;
+            string authenticatedPassword = p.Clave;
+            bool userFound = false;
 
-    cout << "Ingrese su correo: ";
-    getline(cin, p.Email);
-    cout << "Ingrese su clave: ";
-    getline(cin, p.Clave);
-    ifstream people_file("Clients.csv");
+            while (getline(people_file, line)) {
+                stringstream ss(line);
+                string id, nombre, apellido, search_email, password, borrowed_books_ids, purchased_books_ids, status;
 
-    string authenticatedEmail = p.Email;
-    string authenticatedPassword = p.Clave;
+                getline(ss, id, ',');
+                getline(ss, nombre, ',');
+                getline(ss, apellido, ',');
+                getline(ss, search_email, ',');
+                getline(ss, password, ',');
+                getline(ss, borrowed_books_ids, ',');
+                getline(ss, purchased_books_ids, ',');
+                getline(ss, status, ',');
 
-    while (getline(people_file, line)) {
-        stringstream ss(line);
-        string id, nombre, apellido, search_email, password, borrowed_books_ids, purchased_books_ids, status;
-
-        getline(ss, id, ',');
-        getline(ss, nombre, ',');
-        getline(ss, apellido, ',');
-        getline(ss, search_email, ',');
-        getline(ss, password, ',');
-        getline(ss, borrowed_books_ids, ',');
-        getline(ss, purchased_books_ids, ',');
-        getline(ss, status, ',');
-
-        if (search_email == p.Email && password == p.Clave) {
-            if (status == "admin") {
-                admin_cliente = 1;
-            } else if (status == "cliente") {
-                admin_cliente = 2;
+                if (search_email == p.Email && password == p.Clave) {
+                    if (status == "admin") {
+                        admin_cliente = 1;
+                    } else if (status == "cliente") {
+                        admin_cliente = 2;
+                    }
+                    userFound = true;
+                    break;
+                }
             }
-            break;
+            people_file.close();
+
+            if (!userFound) {
+                cout << "Correo o clave incorrecta. ¿Desea registrarse? (s/n): ";
+                char respuesta;
+                cin >> respuesta;
+                if (respuesta == 's' || respuesta == 'S') {
+                    RegistroNuevoUsuario();
+                    cout << "Registro exitoso. Ahora puede iniciar sesión." << endl;
+                    sessionActive = false;
+                } else {
+                    sessionActive = false;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer
+                    continue;
+                }
+            } else {
+                sessionActive = true;
+            }
         }
-    }
-    people_file.close();
-
-    if (admin_cliente == 0) {
-        cout << "Correo o clave incorrecta." << endl;
-        return 1;
-    }
-
-    switch (admin_cliente) {
-        case 1: {
-            cout << "Que desea hacer hoy?\n1.-Gestionar datos libros\n2.-Gestionar datos personas\n3.-Suspender un usuario\n4.-Comprar, Prestar o Devolver un libro\n";
-            cin >> opcion;
-            switch (opcion) {
+        
+        if (sessionActive) {
+            switch (admin_cliente) {
                 case 1: {
-                    cout << "Seleccione una opcion" << endl
-                         << "1.-Agregar un libro" << endl
-                         << "2.-Eliminar un libro" << endl
-                         << "3.-Modificar un libro" << endl;
-                    cin >> opcion2;
-                    switch (opcion2) {
+                    cout << "¿Qué desea hacer hoy?\n1.-Gestionar datos libros\n2.-Gestionar datos personas\n3.-Suspender un usuario\n4.-Comprar, Prestar o Devolver un libro\n5.-Salir\n";
+                    cin >> opcion;
+                    switch (opcion) {
                         case 1: {
-                            AgregarDatosLibros();
+                            cout << "Seleccione una opción" << endl
+                                 << "1.-Agregar un libro" << endl
+                                 << "2.-Eliminar un libro" << endl
+                                 << "3.-Modificar un libro" << endl;
+                            cin >> opcion2;
+                            switch (opcion2) {
+                                case 1: AgregarDatosLibros(); break;
+                                case 2: EliminarDatosLibros(); break;
+                                case 3: ModificarDatosLibros(); break;
+                            }
                             break;
                         }
                         case 2: {
-                            EliminarDatosLibros();
+                            cout << "Seleccione una opción" << endl
+                                 << "1.-Agregar una persona" << endl
+                                 << "2.-Eliminar una persona" << endl
+                                 << "3.-Modificar los datos de una persona" << endl;
+                            cin >> opcion3;
+                            switch (opcion3) {
+                                case 1: AgregarDatosPersonas(); break;
+                                case 2: EliminarDatosPersonas(); break;
+                                case 3: ModificarDatosPersonas(); break;
+                            }
                             break;
                         }
                         case 3: {
-                            ModificarDatosLibros();
+                            SuspenderUsuario();
+                            break;
+                        }
+                        case 4: {
+                            cout << "Seleccione una opción" << endl
+                                 << "1.-Comprar un libro" << endl
+                                 << "2.-Prestar un libro" << endl
+                                 << "3.-Devolver un libro" << endl;
+                            cin >> opcion4;
+                            switch (opcion4) {
+                                case 1: ComprarLibro(authenticatedEmail); break;
+                                case 2: PrestarLibro(authenticatedEmail); break;
+                                case 3: DevolverLibro(authenticatedEmail); break;
+                            }
+                            break;
+                        }
+                        case 5: {
+                            continuar = false;
+                            sessionActive = false;
                             break;
                         }
                     }
                     break;
                 }
                 case 2: {
-                    cout << "Seleccione una opcion" << endl
-                         << "1.-Agregar una persona" << endl
-                         << "2.-Eliminar una persona" << endl
-                         << "3.-Modificar los datos de una persona" << endl;
-                    cin >> opcion3;
-                    switch (opcion3) {
-                        case 1: {
-                            AgregarDatosPersonas();
-                            break;
-                        }
-                        case 2: {
-                            EliminarDatosPersonas();
-                            break;
-                        }
-                        case 3: {
-                            ModificarDatosPersonas();
-                            break;
-                        }
-                    }
-                    break;
-                }
-                case 3: {
-                    SuspenderUsuario();
-                    break;
-                }
-                case 4: {
-                    cout << "Seleccione una opcion" << endl
+                    cout << "¿Qué desea hacer hoy?" << endl
                          << "1.-Comprar un libro" << endl
                          << "2.-Prestar un libro" << endl
-                         << "3.-Devolver un libro" << endl;
-                    cin >> opcion4;
-                    switch (opcion4) {
-                        case 1: {
-                            ComprarLibro(authenticatedEmail);
-                            break;
-                        }
-                        case 2: {
-                            PrestarLibro(authenticatedEmail);
-                            break;
-                        }
-                        case 3: {
-                            DevolverLibro(authenticatedEmail);
+                         << "3.-Devolver un libro" << endl
+                         << "4.-Salir\n";
+                    cin >> opcion5;
+                    switch (opcion5) {
+                        case 1: ComprarLibro(authenticatedEmail); break;
+                        case 2: PrestarLibro(authenticatedEmail); break;
+                        case 3: DevolverLibro(authenticatedEmail); break;
+                        case 4: {
+                            continuar = false;
+                            sessionActive = false;
                             break;
                         }
                     }
                     break;
                 }
             }
-            break;
-        }
-        case 2: {
-            cout << "Que desea hacer hoy?" << endl
-                 << "1.-Comprar un libro" << endl
-                 << "2.-Prestar un libro" << endl
-                 << "3.-Devolver un libro" << endl;
-            cin >> opcion5;
-            switch (opcion5) {
-                case 1: {
-                    ComprarLibro(authenticatedEmail);
-                    break;
-                }
-                case 2: {
-                    PrestarLibro(authenticatedEmail);
-                    break;
-                }
-                case 3: {
-                    DevolverLibro(authenticatedEmail);
-                    break;
-                }
-            }
-            break;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer
         }
     }
     return 0;
@@ -209,14 +206,14 @@ void AgregarDatosLibros() {
     bookfile2.close();
     l.id = new_id;
 
-    cout << "Ingrese el titulo: ";
+    cout << "Ingrese el título: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, l.titulo);
     cout << "Ingrese el nombre del autor: ";
     getline(cin, l.autor);
-    cout << "Ingrese el genero: ";
+    cout << "Ingrese el género: ";
     getline(cin, l.genero);
-    cout << "Ingrese la fecha de publicacion: ";
+    cout << "Ingrese la fecha de publicación: ";
     getline(cin, l.fecha_publicacion);
     cout << "Ingrese la editorial: ";
     getline(cin, l.editorial);
@@ -236,14 +233,14 @@ void AgregarDatosLibros() {
 
 void EliminarDatosLibros() {
     libros l;
-    cout << "Ingrese el id para saber que libro desea eliminar: ";
+    cout << "Ingrese el ID para saber qué libro desea eliminar: ";
     cin >> l.id;
     ofstream temp("temp.csv", ios::out);
     ifstream bookfile("Books.csv", ios::in);
     string line;
 
     while (getline(bookfile, line)) {
-        int actual_id = atoi(line.substr(0, line.find(';')).c_str());
+        int actual_id = atoi(line.substr(0, line.find(',')).c_str());
         if (actual_id != l.id) {
             temp << line << endl;
         }
@@ -258,7 +255,7 @@ void EliminarDatosLibros() {
 
 void ModificarDatosLibros() {
     libros l;
-    cout << "Ingrese el id del libro que desea modificar: ";
+    cout << "Ingrese el ID del libro que desea modificar: ";
     cin >> l.id;
     ofstream temp("temp.csv", ios::out);
     ifstream bookfile("Books.csv", ios::in);
@@ -266,29 +263,28 @@ void ModificarDatosLibros() {
 
     while (getline(bookfile, line)) {
         int actual_id = atoi(line.substr(0, line.find(',')).c_str());
-        if (actual_id != l.id) {
-            temp << line << endl;
-        } else {
-            cout << "Ingrese el titulo del libro: ";
+        if (actual_id == l.id) {
+            cout << "Ingrese el nuevo título: ";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin, l.titulo);
-            cout << "Ingrese el nombre del autor: ";
+            cout << "Ingrese el nuevo nombre del autor: ";
             getline(cin, l.autor);
-            cout << "Ingrese el genero: ";
+            cout << "Ingrese el nuevo género: ";
             getline(cin, l.genero);
-            cout << "Ingrese la fecha de publicacion del libro: ";
+            cout << "Ingrese la nueva fecha de publicación: ";
             getline(cin, l.fecha_publicacion);
-            cout << "Ingrese la editorial: ";
+            cout << "Ingrese la nueva editorial: ";
             getline(cin, l.editorial);
-            cout << "Ingrese el precio del libro: ";
+            cout << "Ingrese el nuevo precio del libro: ";
             cin >> l.precio;
-            cout << "Ingrese la disponibilidad del libro: ";
+            cout << "Ingrese la nueva disponibilidad del libro: ";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin, l.disponibilidad_libros);
-            cout << "Ingrese la cantidad de libros disponibles: ";
+            cout << "Ingrese la nueva cantidad de libros disponibles: ";
             cin >> l.cantidad_libros;
-
-            temp << l.id << ',' << l.titulo << ',' << l.autor << ',' << l.genero << ',' << l.fecha_publicacion << ',' << l.editorial << ',' << l.precio << ',' << l.disponibilidad_libros << "," << l.cantidad_libros << endl;
+            temp << l.id << "," << l.titulo << "," << l.autor << "," << l.genero << "," << l.fecha_publicacion << "," << l.editorial << "," << l.precio << "," << l.disponibilidad_libros << "," << l.cantidad_libros << endl;
+        } else {
+            temp << line << endl;
         }
     }
     bookfile.close();
@@ -296,69 +292,42 @@ void ModificarDatosLibros() {
 
     remove("Books.csv");
     rename("temp.csv", "Books.csv");
-    cout << "Los datos se modificaron correctamente" << endl;
+    cout << "Los datos fueron modificados exitosamente" << endl;
 }
 
 void AgregarDatosPersonas() {
-    ifstream people_file2("Clients.csv");
-    string line;
     Persona p;
+    ifstream people_file("Clients.csv");
+    string line;
     int new_id = 0;
 
-    while (getline(people_file2, line)) {
+    while (getline(people_file, line)) {
         new_id++;
     }
-    people_file2.close();
+    people_file.close();
     p.id = new_id;
-    cout << "Ingrese el nombre de la persona: ";
+
+    cout << "Ingrese el nombre: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, p.Nombre);
-    cout << "Ingrese el apellido de la persona: ";
+    cout << "Ingrese el apellido: ";
     getline(cin, p.Apellido);
-    cout << "Ingrese el correo de la persona: ";
+    cout << "Ingrese el correo: ";
     getline(cin, p.Email);
-    cout << "Ingrese la clave de la persona: ";
+    cout << "Ingrese la clave: ";
     getline(cin, p.Clave);
-    cout << "Ingrese ids de libros prestados: ";
-    cin >> p.id_libros_prestados;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Ingrese el status de la persona: ";
+    cout << "Ingrese el estado (admin/cliente): ";
     getline(cin, p.status);
-    cout << "Ingrese ids de libros comprados: ";
-    cin >> p.id_libros_comprados;
 
-    ofstream people_file("Clients.csv", ios::app);
-
-    people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << p.id_libros_prestados << "," << p.status << "," << p.id_libros_comprados << endl;
-    people_file.close();
+    ofstream people_file_out("Clients.csv", ios::app);
+    people_file_out << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << p.borrowed_books_ids << "," << p.purchased_books_ids << "," << p.status << endl;
+    people_file_out.close();
 }
 
 void EliminarDatosPersonas() {
     Persona p;
-    cout << "Ingrese el id para saber que persona desea eliminar: ";
+    cout << "Ingrese el ID de la persona que desea eliminar: ";
     cin >> p.id;
-    ofstream temp("temp.csv", ios::out);
-    ifstream peoplefile("Clients.csv", ios::in);
-    string line;
-
-    while (getline(peoplefile, line)) {
-        int actual_id = atoi(line.substr(0, line.find(',')).c_str());
-        if (actual_id != p.id) {
-            temp << line << endl;
-        }
-    }
-    peoplefile.close();
-    temp.close();
-
-    remove("Clients.csv");
-    rename("temp.csv", "Clients.csv");
-}
-
-void ModificarDatosPersonas() {
-    Persona p;
-    cout << "Ingrese el id de la persona que desea modificar: ";
-    cin >> p.id;
-
     ofstream temp("temp.csv", ios::out);
     ifstream people_file("Clients.csv", ios::in);
     string line;
@@ -367,24 +336,41 @@ void ModificarDatosPersonas() {
         int actual_id = atoi(line.substr(0, line.find(',')).c_str());
         if (actual_id != p.id) {
             temp << line << endl;
-        } else {
-            cout << "Ingrese el nombre de la persona: ";
+        }
+    }
+    people_file.close();
+    temp.close();
+
+    remove("Clients.csv");
+    rename("temp.csv", "Clients.csv");
+    cout << "La persona fue eliminada exitosamente" << endl;
+}
+
+void ModificarDatosPersonas() {
+    Persona p;
+    cout << "Ingrese el ID de la persona que desea modificar: ";
+    cin >> p.id;
+    ofstream temp("temp.csv", ios::out);
+    ifstream people_file("Clients.csv", ios::in);
+    string line;
+
+    while (getline(people_file, line)) {
+        int actual_id = atoi(line.substr(0, line.find(',')).c_str());
+        if (actual_id == p.id) {
+            cout << "Ingrese el nuevo nombre: ";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             getline(cin, p.Nombre);
-            cout << "Ingrese el apellido de la persona: ";
+            cout << "Ingrese el nuevo apellido: ";
             getline(cin, p.Apellido);
-            cout << "Ingrese el correo de la persona: ";
+            cout << "Ingrese el nuevo correo: ";
             getline(cin, p.Email);
-            cout << "Ingrese la clave de la persona: ";
+            cout << "Ingrese la nueva clave: ";
             getline(cin, p.Clave);
-            cout << "Ingrese la cantidad de libros prestados de la persona: ";
-            cin >> p.id_libros_prestados;
-            cout << "Ingrese el status de la persona: ";
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ingrese el nuevo estado (admin/cliente): ";
             getline(cin, p.status);
-            cout << "Ingrese ids de libros comprados: ";
-            cin >> p.id_libros_comprados;
-            temp << p.id << ',' << p.Nombre << ',' << p.Apellido << ',' << p.Email << ',' << p.Clave << ',' << p.id_libros_prestados << ',' << p.status << "," << p.id_libros_comprados << endl;
+            temp << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << p.borrowed_books_ids << "," << p.purchased_books_ids << "," << p.status << endl;
+        } else {
+            temp << line << endl;
         }
     }
     people_file.close();
@@ -396,95 +382,66 @@ void ModificarDatosPersonas() {
 }
 
 void RegistroNuevoUsuario() {
-    ifstream people_file2("Clients.csv");
-    string line;
     Persona p;
-    int new_id = 0;
-
-    while (getline(people_file2, line)) {
-        new_id++;
-    }
-    people_file2.close();
-    p.id = new_id;
-    cout << "Ingrese su nombre: ";
+    cout << "Ingrese el nombre: ";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, p.Nombre);
-    cout << "Ingrese su apellido: ";
+    cout << "Ingrese el apellido: ";
     getline(cin, p.Apellido);
-    cout << "Ingrese su correo: ";
+    cout << "Ingrese el correo: ";
     getline(cin, p.Email);
-    cout << "Ingrese su clave: ";
+    cout << "Ingrese la clave: ";
     getline(cin, p.Clave);
+    cout << "Ingrese el estado (admin/cliente): ";
+    getline(cin, p.status);
+    p.id = 0;
+    p.borrowed_books_ids = "";
+    p.purchased_books_ids = "";
 
     ofstream people_file("Clients.csv", ios::app);
-
-    people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << "0" << "," << "cliente" << "," << "0" << endl;
+    people_file << p.id << "," << p.Nombre << "," << p.Apellido << "," << p.Email << "," << p.Clave << "," << p.borrowed_books_ids << "," << p.purchased_books_ids << "," << p.status << endl;
     people_file.close();
-    cout << "Usuario registrado, inicie sesion" << endl;
 }
 
 void SuspenderUsuario() {
-    while (true) {
-        Persona p;
-        cout << "Ingrese el id de la persona que desea suspender: ";
-        cin >> p.id;
+    string email;
+    cout << "Ingrese el correo del usuario a suspender: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, email);
+    ofstream temp("temp.csv", ios::out);
+    ifstream people_file("Clients.csv", ios::in);
+    string line;
 
-        ofstream temp("temp.csv");
-        ifstream archivo_clientes("Clients.csv");
-        string line;
+    while (getline(people_file, line)) {
+        stringstream ss(line);
+        string id, nombre, apellido, search_email, clave, borrowed_books_ids, purchased_books_ids, status;
 
-        bool encontrado = false;
-        bool es_admin = false;
+        getline(ss, id, ',');
+        getline(ss, nombre, ',');
+        getline(ss, apellido, ',');
+        getline(ss, search_email, ',');
+        getline(ss, clave, ',');
+        getline(ss, borrowed_books_ids, ',');
+        getline(ss, purchased_books_ids, ',');
+        getline(ss, status, ',');
 
-        while (getline(archivo_clientes, line)) {
-            stringstream ss(line);
-            string id, nombre, apellido, email, clave, borrowedBooks, purchasedBooks, status;
-
-            getline(ss, id, ',');
-            getline(ss, nombre, ',');
-            getline(ss, apellido, ',');
-            getline(ss, email, ',');
-            getline(ss, clave, ',');
-            getline(ss, borrowedBooks, ',');
-            getline(ss, purchasedBooks, ',');
-            getline(ss, status, ',');
-
-            if (id == to_string(p.id)) {
-                encontrado = true;
-                if (status == "admin") {
-                    es_admin = true;
-                    cout << "No se puede suspender a un administrador." << endl;
-                    temp << line << endl;
-                } else {
-                    string updatedLine = id + "," + nombre + "," + apellido + "," + email + "," + clave + "," + borrowedBooks + "," + purchasedBooks + ",suspendido";
-                    temp << updatedLine << endl;
-                    cout << "Cliente suspendido" << endl;
-                }
-            } else {
-                temp << line << endl;
-            }
-        }
-        archivo_clientes.close();
-        temp.close();
-
-        if (encontrado && !es_admin) {
-            remove("Clients.csv");
-            rename("temp.csv", "Clients.csv");
-            break;
+        if (search_email == email) {
+            temp << id << "," << nombre << "," << apellido << "," << search_email << "," << clave << "," << borrowed_books_ids << "," << purchased_books_ids << "," << "suspended" << endl;
         } else {
-            remove("temp.csv");
-            if (!encontrado) {
-                cout << "Persona con ID " << p.id << " no encontrada." << endl;
-            }
-            cout << "Intente nuevamente." << endl;
+            temp << line << endl;
         }
     }
+    people_file.close();
+    temp.close();
+
+    remove("Clients.csv");
+    rename("temp.csv", "Clients.csv");
+    cout << "El usuario fue suspendido exitosamente" << endl;
 }
 
 void ComprarLibro(const string &authenticatedEmail) {
     string bookTitle;
 
-    // Solicitar el nombre del libro al usuario
     cout << "Ingrese el nombre del libro que quiere comprar: ";
     cin.ignore();
     getline(cin, bookTitle);
@@ -495,7 +452,6 @@ void ComprarLibro(const string &authenticatedEmail) {
     bool bookFound = false;
     int bookId;
 
-    // Leer el archivo de libros y actualizar la cantidad
     while (getline(fileIn, line)) {
         stringstream ss(line);
         string idStr, title, author, genre, pubDate, publisher, priceStr, availability, quantityStr;
@@ -529,11 +485,9 @@ void ComprarLibro(const string &authenticatedEmail) {
     fileIn.close();
     fileOut.close();
 
-    // Reemplazar el archivo original con el archivo temporal
     remove("Books.csv");
     rename("Books_temp.csv", "Books.csv");
 
-    // Si el libro fue encontrado y actualizado, registrar la compra
     if (bookFound) {
         ifstream peopleFileIn("Clients.csv");
         ofstream peopleFileOut("Clients_temp.csv");
@@ -566,7 +520,6 @@ void ComprarLibro(const string &authenticatedEmail) {
         peopleFileIn.close();
         peopleFileOut.close();
 
-        // Reemplazar el archivo original con el archivo temporal
         remove("Clients.csv");
         rename("Clients_temp.csv", "Clients.csv");
 
@@ -579,7 +532,6 @@ void ComprarLibro(const string &authenticatedEmail) {
 void PrestarLibro(const string &authenticatedEmail) {
     string bookTitle;
 
-    // Solicitar el nombre del libro al usuario
     cout << "Ingrese el nombre del libro que quiere prestar: ";
     cin.ignore();
     getline(cin, bookTitle);
@@ -590,7 +542,6 @@ void PrestarLibro(const string &authenticatedEmail) {
     bool bookFound = false;
     int bookId;
 
-    // Leer el archivo de libros y actualizar la cantidad
     while (getline(fileIn, line)) {
         stringstream ss(line);
         string idStr, title, author, genre, pubDate, publisher, priceStr, availability, quantityStr;
@@ -624,11 +575,10 @@ void PrestarLibro(const string &authenticatedEmail) {
     fileIn.close();
     fileOut.close();
 
-    // Reemplazar el archivo original con el archivo temporal
+  
     remove("Books.csv");
     rename("Books_temp.csv", "Books.csv");
 
-    // Si el libro fue encontrado y actualizado, registrar el préstamo
     if (bookFound) {
         ifstream peopleFileIn("Clients.csv");
         ofstream peopleFileOut("Clients_temp.csv");
@@ -661,7 +611,6 @@ void PrestarLibro(const string &authenticatedEmail) {
         peopleFileIn.close();
         peopleFileOut.close();
 
-        // Reemplazar el archivo original con el archivo temporal
         remove("Clients.csv");
         rename("Clients_temp.csv", "Clients.csv");
 
@@ -676,7 +625,7 @@ void DevolverLibro(const string &authenticatedEmail) {
     string peopleLine;
     string borrowedBooks;
 
-    // Buscar los libros prestados del usuario autenticado
+ 
     while (getline(peopleFileIn, peopleLine)) {
         stringstream ss(peopleLine);
         string id, nombre, apellido, email, clave, borrowedBooksStr, purchasedBooks, status;
@@ -702,7 +651,7 @@ void DevolverLibro(const string &authenticatedEmail) {
         return;
     }
 
-    // Mostrar los libros prestados
+
     cout << "Libros prestados:\n";
     stringstream ssBooks(borrowedBooks);
     string bookIdStr;
@@ -710,12 +659,11 @@ void DevolverLibro(const string &authenticatedEmail) {
         cout << "ID del libro: " << bookIdStr << endl;
     }
 
-    // Pedir el ID del libro a devolver
     int returnBookId;
     cout << "Ingrese el ID del libro que desea devolver: ";
     cin >> returnBookId;
 
-    // Verificar si el ID ingresado está en la lista de libros prestados
+ 
     stringstream ssCheck(borrowedBooks);
     bool found = false;
     string newBorrowedBooks;
@@ -740,7 +688,6 @@ void DevolverLibro(const string &authenticatedEmail) {
         return;
     }
 
-    // Leer y actualizar el archivo de clientes
     ifstream peopleFileIn2("Clients.csv");
     ofstream peopleFileOut("Clients_temp.csv");
     while (getline(peopleFileIn2, peopleLine)) {
@@ -767,12 +714,10 @@ void DevolverLibro(const string &authenticatedEmail) {
     remove("Clients.csv");
     rename("Clients_temp.csv", "Clients.csv");
 
-    // Leer y actualizar el archivo de libros
     ifstream booksFileIn("Books.csv");
     ofstream booksFileOut("Books_temp.csv");
     string booksLine;
 
-    // Copiar la línea del encabezado
     if (getline(booksFileIn, booksLine)) {
         booksFileOut << booksLine << "\n";
     }
@@ -810,4 +755,3 @@ void DevolverLibro(const string &authenticatedEmail) {
 
     cout << "Libro devuelto con éxito!\n";
 }
-
